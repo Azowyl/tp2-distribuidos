@@ -1,5 +1,10 @@
 import pybgpstream
 import pprint
+from collections import OrderedDict
+
+def remove_prepend(as_path):
+    return list(OrderedDict.fromkeys(as_path))
+
 
 time_init = "2017-03-01"
 time_end = "2017-03-01 00:01"
@@ -17,9 +22,11 @@ stream = pybgpstream.BGPStream(
     )
 )
 
-as_paths = set()
+providers = set()
 for elem in stream:
-    if int(elem.fields["as-path"].split(' ')[-2]) == target_as:
-        as_paths.add(elem.fields["as-path"])
+    if int(elem.fields["as-path"].split(' ')[-1]) == target_as:
+        as_path = remove_prepend(elem.fields["as-path"].split(' '))
+        if len(as_path) > 1:
+            providers.add(as_path[-2]) # provider
 
-pprint.pprint(len(as_paths))
+pprint.pprint(providers)

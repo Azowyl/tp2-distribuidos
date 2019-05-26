@@ -11,7 +11,7 @@ time_end = "2017-03-01 00:01"
 
 collector = 'route-views.saopaulo' # route-views.chicago
 
-target_as = 262907 # 27747 (Telecentro)
+target_as = 27747 # 27747 (Telecentro)
 
 stream = pybgpstream.BGPStream(
     from_time=time_init ,

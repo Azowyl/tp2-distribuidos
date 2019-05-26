@@ -19,7 +19,7 @@ stream = pybgpstream.BGPStream(
 
 as_paths = set()
 for elem in stream:
-    if int(elem.fields["as-path"].split(' ')[-2]) == target_as:
+    if int(elem.fields["as-path"].split(' ')[-1]) == target_as:
         as_paths.add(elem.fields["as-path"])
 
 pprint.pprint(len(as_paths))

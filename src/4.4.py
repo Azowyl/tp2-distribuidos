@@ -3,7 +3,7 @@ import pprint
 from aggregate6 import aggregate
 
 time_init = "2015-04-29"
-time_end = "2015-04-29 00:01"
+time_end = "2015-04-29 04:00"
 
 collector = 'route-views.kixp' # route-views.chicago
 
@@ -24,7 +24,7 @@ for elem in stream:
 prefixes_by_as = dict()
 
 for rib_elem in rib.values():
-    as_origin = rib_elem["as-path"].split(" ")[0]
+    as_origin = rib_elem["as-path"].split(" ")[-1]
     next_hop = rib_elem["next-hop"]
     key = as_origin + next_hop
     if not key in prefixes_by_as.keys():

@@ -1,8 +1,8 @@
 import pybgpstream
 import pprint
 
-time_init = "2017-03-01"
-time_end = "2017-03-01 00:01"
+time_init = "2015-04-29"
+time_end = "2015-04-29 00:01"
 
 collector = 'route-views.saopaulo' # route-views.chicago
 
@@ -17,9 +17,11 @@ stream = pybgpstream.BGPStream(
     )
 )
 
-as_paths = set()
-for elem in stream:
-    if int(elem.fields["as-path"].split(' ')[-2]) == target_as:
-        as_paths.add(elem.fields["as-path"])
+rib = dict()
 
-pprint.pprint(len(as_paths))
+for elem in stream:
+    if elem.type == 'R': # rib type
+        rib[elem.fields["prefix"]] = elem.fields
+
+for rib_elem in rib.values():
+    pprint.pprint(rib_elem)

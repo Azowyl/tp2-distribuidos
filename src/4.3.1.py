@@ -4,14 +4,14 @@ import pprint
 time_init = "2017-03-01"
 time_end = "2017-03-01 00:01"
 
-collector = 'route-views.saopaulo' # route-views.chicago
+collector = 'route-views.saopaulo'  # route-views.chicago
 
-target_as = 262907 # 27747 (Telecentro)
+target_as = 262907  # 27747 (Telecentro)
 
 stream = pybgpstream.BGPStream(
-    from_time=time_init ,
-    until_time=time_end ,
-    filter = "type ribs and collector %s and path %s" % (
+    from_time=time_init,
+    until_time=time_end,
+    filter="type ribs and collector %s and path %s" % (
         collector,
         target_as
     )

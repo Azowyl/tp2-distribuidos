@@ -24,15 +24,16 @@ for elem in stream:
 prefixes_by_as = dict()
 
 for rib_elem in rib.values():
-    as_origin = int(rib_elem["as-path"].split(" ")[0])
-    if not as_origin in prefixes_by_as.keys():
-        prefixes_by_as[as_origin] = list()
-    prefixes_by_as[as_origin].append(rib_elem["prefix"])
+    as_origin = rib_elem["as-path"].split(" ")[0]
+    next_hop = rib_elem["next-hop"]
+    key = as_origin + next_hop
+    if not key in prefixes_by_as.keys():
+        prefixes_by_as[key] = list()
+    prefixes_by_as[key].append(rib_elem["prefix"])
 
 aggregated_rib_len = 0
 
 for prefixes in prefixes_by_as.values():
-    print(prefixes)
     aggregated_rib_len += len(aggregate(prefixes))
 
 pprint.pprint("Full RIB length: %d" % len(rib))
